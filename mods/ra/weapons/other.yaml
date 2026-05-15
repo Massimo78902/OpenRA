@@ -1,261 +1,314 @@
 ^FireWeapon:
-	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees
-	ReloadDelay: 70
-	Range: 5c0
+	ValidTargets: Ground, Water, GroundActor, WaterActor, Trees, AirborneActor, Underwater
+	ReloadDelay: 1
+	Range: 999c0
+	Report: firebl3.aud
+
+	Projectile: InstantHit
+		Blockable: false
+
 	Warhead@1Dam: SpreadDamage
-		Spread: 213
-		Damage: 15000
-		ValidTargets: GroundActor, WaterActor, Trees
+		Spread: 100c0
+		Damage: 9999999
+		ValidTargets: GroundActor, WaterActor, Trees, AirborneActor, Underwater
 		Versus:
-			None: 90
-			Wood: 50
-			Tree: 50
-			Light: 60
-			Heavy: 25
-			Concrete: 20
-		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary
+			None: 1000
+			Wood: 1000
+			Tree: 1000
+			Light: 1000
+			Heavy: 1000
+			Concrete: 1000
+		DamageTypes: Prone50Percent, TriggerProne, FireDeath, Incendiary, ExplosionDeath
+
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Scorch
+		Size: 20
 		InvalidTargets: Structure, Wall
+
 	Warhead@3Eff: CreateEffect
-		Explosions: napalm
-		ImpactSounds: firebl3.aud
+		Explosions: nuke
+		ImpactSounds: kaboom15.aud
 		ImpactActors: false
+
+	Warhead@4Shake: ShakeScreen
+		Duration: 80
+		Intensity: 20
+		Multiplier: 5,5
+
+	Warhead@5Flash: FlashEffect
+		Duration: 60
+		FlashType: Nuke
+
 
 FireballLauncher:
 	Inherits: ^FireWeapon
-	Burst: 2
-	BurstDelays: 20
-	Projectile: Bullet
-		Speed: 250
-		TrailImage: fb2
-		Image: FB1
+	Burst: 20
+	BurstDelays: 1
 	Warhead@1Dam: SpreadDamage
 		Versus:
-			Light: 50
+			Light: 1000
+
 
 Flamer:
 	Inherits: ^FireWeapon
-	ReloadDelay: 50
-	Burst: 15
-	BurstDelays: 1
-	Projectile: Bullet
-		Speed: 170
-		TrailImage: fb4
-		Image: fb3
-		LaunchAngle: 62
-		Inaccuracy: 853
+	ReloadDelay: 1
+	Burst: 50
+	BurstDelays: 0
 	Warhead@1Dam: SpreadDamage
-		Spread: 341
-		Damage: 1000
+		Spread: 100c0
+		Damage: 9999999
 		Versus:
-			None: 70
-			Wood: 80
-			Tree: 80
-			Light: 40
-			Heavy: 20
-			Concrete: 10
+			None: 1000
+			Wood: 1000
+			Tree: 1000
+			Light: 1000
+			Heavy: 1000
+			Concrete: 1000
 	Warhead@2Smu: LeaveSmudge
-		Chance: 15
+		Chance: 100
 	Warhead@3Eff: CreateEffect
-		Explosions: small_napalm
+		Explosions: nuke
+
 
 Napalm:
 	Inherits: ^FireWeapon
-	ReloadDelay: 20
-	Range: 4c512
-	Projectile: Bullet
-		Image: BOMBLET
-		Speed: 85
-		Blockable: false
+	ReloadDelay: 1
+	Range: 999c0
 	Warhead@1Dam: SpreadDamage
-		Spread: 170
-		Damage: 10000
+		Spread: 100c0
+		Damage: 9999999
 		Versus:
-			Wood: 100
-			Concrete: 50
+			Wood: 1000
+			Concrete: 1000
+
 
 ^TeslaWeapon:
-	ReloadDelay: 3
-	Range: 7c0
+	ReloadDelay: 1
+	Range: 999c0
 	Report: tesla1.aud
-	Projectile: TeslaZap
-	ValidTargets: Ground, Water, GroundActor, WaterActor
+
+	Projectile: InstantHit
+		Blockable: false
+
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Underwater
+
 	Warhead@1Dam: SpreadDamage
-		Spread: 42
-		Damage: 10000
-		ValidTargets: GroundActor, WaterActor
+		Spread: 50c0
+		Damage: 9999999
+		ValidTargets: GroundActor, WaterActor, AirborneActor, Underwater
 		Versus:
 			None: 1000
-		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath
+			Wood: 1000
+			Light: 1000
+			Heavy: 1000
+			Concrete: 1000
+		DamageTypes: Prone50Percent, TriggerProne, ElectricityDeath, ExplosionDeath
+
 
 TeslaZap:
 	Inherits: ^TeslaWeapon
 	Warhead@1Dam: SpreadDamage
 		Versus:
-			Wood: 60
+			Wood: 1000
+
 
 PortaTesla:
 	Inherits: ^TeslaWeapon
-	ReloadDelay: 70
-	Range: 6c0
+	ReloadDelay: 1
+	Range: 999c0
 	Warhead@1Dam: SpreadDamage
-		Damage: 4500
+		Damage: 9999999
 		Versus:
-			Wood: 73
-			Heavy: 60
+			Wood: 1000
+			Heavy: 1000
+
 
 TTankZap:
 	Inherits: ^TeslaWeapon
-	ReloadDelay: 120
-	Range: 7c0
+	ReloadDelay: 1
+	Range: 999c0
+
 
 DogJaw:
 	ValidTargets: Infantry
-	ReloadDelay: 10
-	Range: 3c0
+	ReloadDelay: 1
+	Range: 999c0
 	Report: dogg5p.aud
 	TargetActorCenter: true
+
 	Projectile: InstantHit
+		Blockable: false
+
 	Warhead@1Dam: TargetDamage
-		Damage: 100000
+		Damage: 9999999
 		ValidTargets: Infantry
 		InvalidTargets: Ant
 		DamageTypes: DefaultDeath
 
+
 Heal:
-	ReloadDelay: 80
-	Range: 4c0
+	ReloadDelay: 1
+	Range: 999c0
 	Report: heal2.aud
 	ValidTargets: Heal
-	Projectile: Bullet
-		Speed: 1c682
+
+	Projectile: InstantHit
+		Blockable: false
+
 	Warhead@1Eff: FlashTargetsInRadius
-		Radius: 1065
+		Radius: 99999
 		ValidRelationships: Ally
 		ValidTargets: Heal
+
 	Warhead@2Dam: SpreadDamage
-		Spread: 213
-		Damage: -5000
+		Spread: 100c0
+		Damage: -9999999
 		ValidRelationships: Ally
 		ValidTargets: Heal
 		DebugOverlayColor: 00FF00
+
 
 Repair:
 	Inherits: Heal
 	Report: fixit1.aud
 	ValidTargets: Repair
+
 	Warhead@1Eff: FlashTargetsInRadius
 		ValidTargets: Repair
+
 	Warhead@2Dam: SpreadDamage
-		Damage: -2000
+		Damage: -9999999
 		ValidTargets: Repair
+
 
 Demolish:
 	ValidTargets: GroundActor, WaterActor
+
 	Warhead@1Dam: SpreadDamage
+		Spread: 100c0
+		Damage: 9999999
 		DamageTypes: DefaultDeath
 		ValidTargets: GroundActor, WaterActor
+
 	Warhead@2Eff: CreateEffect
-		Explosions: building
+		Explosions: nuke
 		ImpactSounds: kaboom25.aud
 
+
 Claw:
-	ReloadDelay: 30
-	Range: 1c512
+	ReloadDelay: 1
+	Range: 999c0
 	ValidTargets: Ground, Water, GroundActor, WaterActor
-	Projectile: Bullet
-		Speed: 1c682
+
+	Projectile: InstantHit
+		Blockable: false
+
 	Warhead@1Dam: SpreadDamage
-		Spread: 213
-		Damage: 3000
+		Spread: 50c0
+		Damage: 9999999
 		ValidTargets: GroundActor, WaterActor
 		Versus:
-			None: 97
-			Wood: 10
-			Light: 30
-			Heavy: 10
-			Concrete: 10
+			None: 1000
+			Wood: 1000
+			Light: 1000
+			Heavy: 1000
+			Concrete: 1000
 		DamageTypes: Prone50Percent, TriggerProne, DefaultDeath
+
 
 Mandible:
 	Inherits: Claw
-	ReloadDelay: 10
-	Burst: 2
-	BurstDelays: 14
+	ReloadDelay: 1
+	Burst: 20
+	BurstDelays: 1
 	StartBurstReport: antbite.aud
+
 	Warhead@1Dam: SpreadDamage
-		Damage: 6000
+		Damage: 9999999
 		Versus:
-			None: 90
+			None: 1000
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
 
 MandibleHeavy:
 	Inherits: Claw
-	ReloadDelay: 15
-	Burst: 2
-	BurstDelays: 20
+	ReloadDelay: 1
+	Burst: 20
+	BurstDelays: 1
 	StartBurstReport: antbite.aud
+
 	Warhead@1Dam: SpreadDamage
-		Damage: 10000
+		Damage: 9999999
 		Versus:
-			None: 100
-			Light: 90
-			Heavy: 35
-			Concrete: 20
+			None: 1000
+			Light: 1000
+			Heavy: 1000
+			Concrete: 1000
 		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+
 
 AntFireball:
 	Inherits: FireballLauncher
 	Report: antbite.aud
-	ReloadDelay: 50
-	Burst: 2
-	BurstDelays: 20
-	Range: 4c0
-	Projectile: Bullet
-		Speed: 200
+	ReloadDelay: 1
+	Burst: 20
+	BurstDelays: 1
+	Range: 999c0
+
 	Warhead@1Dam: SpreadDamage
-		Spread: 213
-		Damage: 4000
+		Spread: 100c0
+		Damage: 9999999
 		Versus:
-			None: 80
-			Wood: 85
-			Light: 45
-			Heavy: 20
-			Concrete: 15
+			None: 1000
+			Wood: 1000
+			Light: 1000
+			Heavy: 1000
+			Concrete: 1000
+
 
 DemoTruckTargeting:
 	ValidTargets: DetonateAttack
-	Range: 2c0
+	Range: 999c0
+
 	Projectile: InstantHit
+		Blockable: false
+
 	Warhead@1Dam: TargetDamage
+		Damage: 9999999
 		ValidTargets: DetonateAttack
+
 
 MADTankThump:
 	ValidTargets: GroundActor, WaterActor
 	InvalidTargets: MADTank, Infantry
+
 	Warhead@1Dam: HealthPercentageDamage
-		Spread: 7c0
-		Damage: 1
+		Spread: 100c0
+		Damage: 100
 		ValidTargets: GroundActor, WaterActor
 		InvalidTargets: MADTank, Infantry
+
 	Warhead@Shake: ShakeScreen
-		Duration: 10
-		Intensity: 3
-		Multiplier: 1,0
+		Duration: 100
+		Intensity: 20
+		Multiplier: 5,5
+
 
 MADTankDetonate:
 	ValidTargets: GroundActor, WaterActor
 	InvalidTargets: MADTank, Infantry
+
 	Warhead@1Dam: HealthPercentageDamage
-		Spread: 7c0
-		Damage: 19
+		Spread: 100c0
+		Damage: 100
 		ValidTargets: GroundActor, WaterActor
 		InvalidTargets: MADTank, Infantry
+
 	Warhead@2Smu: LeaveSmudge
 		SmudgeType: Crater
-		Size: 7,6
+		Size: 50,50
+
 	Warhead@3Eff: CreateEffect
-		Explosions: med_explosion
+		Explosions: nuke
 		ImpactSounds: mineblo1.aud
 		ImpactActors: false
