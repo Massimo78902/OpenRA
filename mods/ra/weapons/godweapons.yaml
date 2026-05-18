@@ -1,0 +1,32 @@
+GodWeapon:
+	ReloadDelay: 1
+	Range: 999c0
+	Report: nukelaunch.aud
+
+	Projectile: InstantHit
+		Blockable: false
+
+	ValidTargets: Ground, Water, GroundActor, WaterActor, AirborneActor, Underwater, Trees
+
+	Warhead@1Dam: SpreadDamage
+		Spread: 100c0
+		Damage: 9999999
+		ValidTargets: GroundActor, WaterActor, AirborneActor, Underwater, Trees
+
+		Versus:
+			None: 1000
+			Wood: 1000
+			Light: 1000
+			Heavy: 1000
+			Concrete: 1000
+
+		DamageTypes: ExplosionDeath, FireDeath, Incendiary
+
+	Warhead@2Eff: CreateEffect
+		Explosions: nuke
+		ImpactSounds: kaboom15.aud
+
+	Warhead@3Shake: ShakeScreen
+		Duration: 80
+		Intensity: 20
+		Multiplier: 5,5
