@@ -4,9 +4,7 @@ DOG:
     Queue: Infantry
     BuildAtProductionType: Dog
     BuildPaletteOrder: 50
-    Prerequisites:
-      - ~kenn
-      - ~techlevel.infonly
+    Prerequisites: [~kenn, ~techlevel.infonly]
   Description: actor-dog.description
   Valued:
     Cost: 200
@@ -77,9 +75,7 @@ E1:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 10
-    Prerequisites:
-      - ~barracks
-      - ~techlevel.infonly
+    Prerequisites: [~barracks, ~techlevel.infonly]
   Description: actor-e1.description
   Selectable:
     Class: E1
@@ -122,9 +118,7 @@ E2:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 40
-    Prerequisites:
-      - ~barr
-      - ~techlevel.infonly
+    Prerequisites: [~barr, ~techlevel.infonly]
   Description: actor-e2.description
   Valued:
     Cost: 150
@@ -165,9 +159,7 @@ E3:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 30
-    Prerequisites:
-      - ~barracks
-      - ~techlevel.infonly
+    Prerequisites: [~barracks, ~techlevel.infonly]
   Description: actor-e3.description
   Selectable:
     Class: E3
@@ -181,8 +173,22 @@ E3:
     HP: 4500
   Armament@PRIMARY:
     Weapon: RedEye
+    LocalOffset: [0,0,555]
   Armament@SECONDARY:
     Weapon: Dragon
+    LocalOffset: [0,0,555]
+  Armament@GARRISONED:
+    Weapon: RedEye
+  Armament@GARRISONEDSECONDARY:
+    Weapon: Dragon
+  TakeCover:
+    ProneOffset: [384,0,-395]
+  WithInfantryBody:
+    DefaultAttackSequence: shoot
+    RequiresCondition: "!parachute"
+  WithInfantryBody@PARACHUTE:
+    StandSequences: parachute
+    RequiresCondition: parachute
   AutoTarget:
     ScanRadius: 5
   Palette: player-noshadow
@@ -205,10 +211,7 @@ E4:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 70
-    Prerequisites:
-      - ~barr
-      - ftur
-      - ~techlevel.low
+    Prerequisites: [~barr, ftur, ~techlevel.low]
   Description: actor-e4.description
   Valued:
     Cost: 300
@@ -218,18 +221,27 @@ E4:
     HP: 4000
   Armament@PRIMARY:
     Weapon: Flamer
+    LocalOffset: [700,0,500]
+    FireDelay: 8
+  Armament@GARRISONED:
+    Weapon: Flamer
+  TakeCover:
+    ProneOffset: [160,0,-288]
+  FireWarheadsOnDeath:
+    Weapon: VisualExplode
+    EmptyWeapon: VisualExplode
+    Chance: 50
   Palette: player-noshadow
   IsPlayerPalette: true
 
 E6:
   Inherits: ^Soldier
+  Inherits@selection: ^SelectableSupportUnit
   Buildable:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 60
-    Prerequisites:
-      - ~barracks
-      - ~techlevel.infonly
+    Prerequisites: [~barracks, ~techlevel.infonly]
   Description: actor-e6.description
   Valued:
     Cost: 400
@@ -237,41 +249,104 @@ E6:
     Name: actor-e6.name
   UpdatesPlayerStatistics:
     AddToArmyValue: true
+  Passenger:
+    CustomPipType: yellow
+  InstantlyRepairs: true
+  RepairsBridges: true
+  CaptureManager:
+    GrantConditionOnPrerequisite@GLOBALREUSABLEENGINEER:
+      Condition: global-reusable-engineers
+      Prerequisites: global-reusable-engineers
+  Captures:
+    RequiresCondition: "!global-reusable-engineers"
+    CaptureTypes: building
+    PlayerExperience: 10
+    CaptureDelay: 200
+  Captures@REUSABLE:
+    RequiresCondition: global-reusable-engineers
+    CaptureTypes: building
+    PlayerExperience: 10
+    CaptureDelay: 375
+    ConsumedByCapture: false
   Voiced:
     VoiceSet: EngineerVoice
 
 SPY:
   Inherits: ^Soldier
+  Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
   Buildable:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 90
-    Prerequisites:
-      - ~!infantry.england
-      - dome
-      - ~tent
-      - ~techlevel.medium
+    Prerequisites: [~!infantry.england, dome, ~tent, ~techlevel.medium]
   Description: actor-spy.description
   Valued:
     Cost: 500
+  UpdatesPlayerStatistics:
+    AddToArmyValue: true
+  Passenger:
+    CustomPipType: blue
+  Disguise:
+    DisguisedCondition: disguise
+  Infiltrates:
+    Types: SpyInfiltrate
+    Notification: BuildingInfiltrated
+    TextNotification: notification-building-infiltrated
+  AutoTarget:
+    InitialStance: HoldFire
+    ScanRadius: 5
+  WithDecoration@disguise:
+    Position: Top
+    Margin: [0, -6]
+    Image: pips
+    Sequence: tag-spy
+    Palette: effect
+    RequiresCondition: disguise
+  Armament:
+    Weapon: SilencedPPK
   Voiced:
     VoiceSet: SpyVoice
 
+SPY.England:
+  Inherits: SPY
+  Buildable:
+    Prerequisites: [~infantry.england, dome, ~tent, ~techlevel.medium]
+  Valued:
+    Cost: 250
+  GivesExperience:
+    Experience: 500
+  RenderSprites:
+    Image: spy
+
 E7:
   Inherits: ^Soldier
+  Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
   Buildable:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 120
-    Prerequisites:
-      - ~tent
-      - atek
-      - ~techlevel.high
+    Prerequisites: [~tent, atek, ~techlevel.high]
+    BuildLimit: 1
   Description: actor-e7.description
   Valued:
     Cost: 1800
+  Tooltip:
+    Name: actor-e7.name
   Health:
     HP: 10000
+  Mobile:
+    Speed: 68
+  RevealsShroud:
+    Range: 6c0
+  Demolition:
+    DetonationDelay: 45
+  Armament@PRIMARY:
+    Weapon: Colt45
+  Armament@GARRISONED:
+    Weapon: Colt45
+    MuzzleSequence: garrison-muzzle
+  Voiced:
+    VoiceSet: TanyaVoice
 
 MEDI:
   Inherits: ^Soldier
@@ -279,12 +354,20 @@ MEDI:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 40
-    Prerequisites:
-      - ~tent
-      - ~techlevel.infonly
+    Prerequisites: [~tent, ~techlevel.infonly]
   Description: actor-medi.description
   Valued:
     Cost: 200
+  Health:
+    HP: 6000
+  Mobile:
+    Speed: 49
+  RevealsShroud:
+    Range: 3c0
+  Armament:
+    Weapon: Heal
+  Voiced:
+    VoiceSet: MedicVoice
 
 MECH:
   Inherits: ^Soldier
@@ -292,128 +375,153 @@ MECH:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 100
-    Prerequisites:
-      - ~tent
-      - fix
-      - ~techlevel.medium
+    Prerequisites: [~tent, fix, ~techlevel.medium]
   Description: actor-mech.description
   Valued:
     Cost: 500
+  Health:
+    HP: 8000
+  Mobile:
+    Speed: 49
+  Armament:
+    Weapon: Repair
+  Voiced:
+    VoiceSet: MechanicVoice
 
 EINSTEIN:
   Inherits: ^CivInfantry
   Mobile:
     Speed: 68
+  Voiced:
+    VoiceSet: EinsteinVoice
 
 DELPHI:
   Inherits: ^CivInfantry
+  Mobile:
+    Speed: 68
 
 CHAN:
   Inherits: ^CivInfantry
   Valued:
     Cost: 500
+  Selectable:
+    Class: CHAN
 
 GNRL:
   Inherits:
     - ^CivInfantry
     - ^ArmedCivilian
+  Selectable:
+    Class: GNRL
+  Voiced:
+    VoiceSet: StavrosVoice
 
 THF:
   Inherits: ^Soldier
+  Inherits@selection: ^SelectableSupportUnit
   Buildable:
     Queue: Infantry
     BuildAtProductionType: Soldier
     BuildPaletteOrder: 110
-    Prerequisites:
-      - ~barr
-      - dome
-      - ~techlevel.medium
+    Prerequisites: [~barr, dome, ~techlevel.medium]
+  Description: actor-thf.description
   Valued:
     Cost: 500
+  Health:
+    HP: 8000
+  RevealsShroud:
+    Range: 5c0
+  CaptureManager:
+    Captures:
+      CaptureTypes: [vehicle, aircraft]
+  Cloak:
+    InitialDelay: 250
+    CloakDelay: 120
+    UncloakOn: [Attack, Unload, Infiltrate, Demolish, Move]
   Voiced:
     VoiceSet: ThiefVoice
+  Mobile:
+    Speed: 72
 
 SHOK:
-  Inherits: ^Soldier
-  Buildable:
-    Queue: Infantry
-    BuildAtProductionType: Soldier
-    BuildPaletteOrder: 130
-    Prerequisites:
-      - ~barr
-      - stek
-      - tsla
-      - ~infantry.russia
-      - ~techlevel.high
-  Valued:
-    Cost: 350
-  Armament@PRIMARY:
-    Weapon: PortaTesla
-
-Zombie:
-  Inherits: ^Soldier
-  Buildable:
-    Queue: Infantry
-    BuildAtProductionType: Soldier
-    BuildPaletteOrder: 200
-    Prerequisites:
-      - ~barracks
-      - ~bio
-  Valued:
-    Cost: 100
-  Health:
-    HP: 25000
-
-Ant:
-  Inherits: ^Infantry
-  Valued:
-    Cost: 300
-  Health:
-    HP: 75000
-  Armament:
-    Weapon: mandible
-
-FireAnt:
-  Inherits: Ant
-
-ScoutAnt:
-  Inherits: Ant
-
-WarriorAnt:
-  Inherits: Ant
-
-GodSoldier:
   Inherits: ^Soldier
   Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
   Buildable:
     Queue: Infantry
     BuildAtProductionType: Soldier
-    BuildPaletteOrder: 9999
-    Prerequisites: []
-  Description: actor-godsoldier.description
+    BuildPaletteOrder: 130
+    Prerequisites: [~barr, stek, tsla, ~infantry.russia, ~techlevel.high]
+  Description: actor-shok.description
   Valued:
-    Cost: 0
-  Tooltip:
-    Name: actor-godsoldier.name
-  UpdatesPlayerStatistics:
-    AddToArmyValue: true
-  Selectable:
-    Class: GodSoldier
+    Cost: 350
   Health:
-    HP: 999999999
-  Mobile:
-    Speed: 120
-  RevealsShroud:
-    Range: 20c0
+    HP: 5000
   Armament@PRIMARY:
-    Weapon: GodLaser
-    FireDelay: 0
-  AttackFrontal:
-    FacingTolerance: 0
-  AutoTarget:
-    InitialStance: AttackAnything
-    ScanRadius: 999999
-  Palette: player-noshadow
-  IsPlayerPalette: true
+    Weapon: PortaTesla
+    LocalOffset: [427,0,341]
   Voiced:
-    VoiceSet: HeroicVoice
+    VoiceSet: ShokVoice
+
+Zombie:
+  Inherits: ^Soldier
+  Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 200
+    Prerequisites: [~barracks, ~bio]
+  Description: actor-zombie.description
+  Valued:
+    Cost: 100
+  Health:
+    HP: 25000
+  Mobile:
+    Speed: 39
+  Armament:
+    Weapon: claw
+  Voiced:
+    VoiceSet: AntVoice
+
+Ant:
+  Inherits: ^Infantry
+  Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+  Valued:
+    Cost: 300
+  Health:
+    HP: 75000
+  Mobile:
+    Speed: 92
+    TurnSpeed: 48
+  Armament:
+    Weapon: mandible
+  Voiced:
+    VoiceSet: AntVoice
+
+FireAnt:
+  Inherits: Ant
+  Mobile:
+    Speed: 68
+  Armament:
+    Weapon: AntFireball
+  Health:
+    HP: 7500
+  Armor:
+    Type: Heavy
+
+ScoutAnt:
+  Inherits: Ant
+  Health:
+    HP: 8500
+  Armor:
+    Type: Light
+  AutoTarget:
+    ScanRadius: 7
+
+WarriorAnt:
+  Inherits: Ant
+  Health:
+    HP: 12500
+  Armor:
+    Type: Heavy
+  Armament:
+    Weapon: MandibleHeavy
