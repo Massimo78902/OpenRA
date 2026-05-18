@@ -1,23 +1,419 @@
-GODSOLDIER:
-	Inherits: E1
+DOG:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Dog
+    BuildPaletteOrder: 50
+    Prerequisites:
+      - ~kenn
+      - ~techlevel.infonly
+  Description: actor-dog.description
+  Valued:
+    Cost: 200
+  Tooltip:
+    Name: actor-dog.name
+    GenericName: actor-dog.generic-name
+  UpdatesPlayerStatistics:
+    AddToArmyValue: true
+  Selectable:
+    Bounds: [512, 725, -42, -170]
+    DecorationBounds: [512, 725, -42, -170]
+  Health:
+    HP: 1800
+  Mobile:
+    Speed: 100
+  Voice:
+    Move:
+      PauseOnCondition: "attack-cooldown || eating"
+    Guard:
+      Voice: Move
+    Passenger:
+      Voice: Move
+  RevealsShroud:
+    Range: 5c512
+  Armament:
+    Weapon: DogJaw
+    ReloadingCondition: attack-cooldown
+  AttackFrontal:
+    AttackLeap:
+      Voice: Attack
+    PauseOnCondition: "attacking || attack-cooldown"
+  AttackMove:
+    Voice: Move
+  GrantConditionOnAttack:
+    Condition: eating
+    RevokeDelay: 20
+  GrantConditionWhileAiming:
+    Condition: run
+  AutoTarget:
+    InitialStance: AttackAnything
+    AutoTargetPriority@DEFAULT:
+      ValidTargets: Infantry
+  Targetable:
+    TargetTypes: [GroundActor, Infantry]
+  WithInfantryBody:
+    MoveSequence: walk
+    StandSequences: stand
+    DefaultAttackSequence: eat
+    RequiresCondition: "!run && !parachute"
+  WithInfantryBody@RUN:
+    MoveSequence: run
+    RequiresCondition: "run && !parachute"
+  WithInfantryBody@PARACHUTE:
+    RequiresCondition: parachute
+  Palette: player-noshadow
+  IsPlayerPalette: true
+  SpeedMultiplier:
+    Modifier: 150
+    RequiresCondition: run
+  IgnoresDisguise: true
+  Voiced:
+    VoiceSet: DogVoice
 
-	Buildable:
-		BuildPaletteOrder: 999
+E1:
+  Inherits: ^Soldier
+  Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 10
+    Prerequisites:
+      - ~barracks
+      - ~techlevel.infonly
+  Description: actor-e1.description
+  Selectable:
+    Class: E1
+  Valued:
+    Cost: 100
+  Tooltip:
+    Name: actor-e1.name
+  UpdatesPlayerStatistics:
+    AddToArmyValue: true
+  Health:
+    HP: 5000
+  Armament@PRIMARY:
+    Weapon: M1Carbine
+  Armament@GARRISONED:
+    Weapon: Vulcan
+    MuzzleSequence: garrison-muzzle
+  WithInfantryBody:
+    DefaultAttackSequence: shoot
+    RequiresCondition: "!parachute"
+  WithInfantryBody@PARACHUTE:
+    StandSequences: parachute
+    RequiresCondition: parachute
+  Palette: player-noshadow
+  IsPlayerPalette: true
 
-	Valued:
-		Cost: 0
+E1R1:
+  Inherits: E1
+  RenderSprites:
+    Image: E1
+  ProducibleWithLevel:
+    Prerequisites: techlevel.infonly
+    InitialLevels: 1
+  UpdatesPlayerStatistics:
+    OverrideActor: e1
 
-	Tooltip:
-		Name: God Soldier
+E2:
+  Inherits: ^Soldier
+  Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 40
+    Prerequisites:
+      - ~barr
+      - ~techlevel.infonly
+  Description: actor-e2.description
+  Valued:
+    Cost: 150
+  Tooltip:
+    Name: actor-e2.name
+  UpdatesPlayerStatistics:
+    AddToArmyValue: true
+  Health:
+    HP: 5000
+  Mobile:
+    Speed: 68
+  Armament@PRIMARY:
+    Weapon: Grenade
+    LocalOffset: [0,0,555]
+    FireDelay: 15
+  Armament@GARRISONED:
+    Weapon: Grenade
+    FireDelay: 15
+  TakeCover:
+    ProneOffset: [256,64,-331]
+  WithInfantryBody:
+    DefaultAttackSequence: throw
+    RequiresCondition: "!parachute"
+  WithInfantryBody@PARACHUTE:
+    StandSequences: parachute
+    RequiresCondition: parachute
+  FireWarheadsOnDeath:
+    Weapon: UnitExplodeSmall
+    EmptyWeapon: UnitExplodeSmall
+    DamageSource: Killer
+  Palette: player-noshadow
+  IsPlayerPalette: true
 
-	Health:
-		HP: 50000
+E3:
+  Inherits: ^Soldier
+  Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 30
+    Prerequisites:
+      - ~barracks
+      - ~techlevel.infonly
+  Description: actor-e3.description
+  Selectable:
+    Class: E3
+  Valued:
+    Cost: 300
+  Tooltip:
+    Name: actor-e3.name
+  UpdatesPlayerStatistics:
+    AddToArmyValue: true
+  Health:
+    HP: 4500
+  Armament@PRIMARY:
+    Weapon: RedEye
+  Armament@SECONDARY:
+    Weapon: Dragon
+  AutoTarget:
+    ScanRadius: 5
+  Palette: player-noshadow
+  IsPlayerPalette: true
 
-	Mobile:
-		Speed: 200
+E3R1:
+  Inherits: E3
+  RenderSprites:
+    Image: E3
+  ProducibleWithLevel:
+    Prerequisites: techlevel.infonly
+    InitialLevels: 1
+  UpdatesPlayerStatistics:
+    OverrideActor: e3
 
-	Armament@PRIMARY:
-		Weapon: M1Carbine
+E4:
+  Inherits: ^Soldier
+  Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 70
+    Prerequisites:
+      - ~barr
+      - ftur
+      - ~techlevel.low
+  Description: actor-e4.description
+  Valued:
+    Cost: 300
+  Tooltip:
+    Name: actor-e4.name
+  Health:
+    HP: 4000
+  Armament@PRIMARY:
+    Weapon: Flamer
+  Palette: player-noshadow
+  IsPlayerPalette: true
 
-	RevealsShroud:
-		Range: 10c0
+E6:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 60
+    Prerequisites:
+      - ~barracks
+      - ~techlevel.infonly
+  Description: actor-e6.description
+  Valued:
+    Cost: 400
+  Tooltip:
+    Name: actor-e6.name
+  UpdatesPlayerStatistics:
+    AddToArmyValue: true
+  Voiced:
+    VoiceSet: EngineerVoice
+
+SPY:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 90
+    Prerequisites:
+      - ~!infantry.england
+      - dome
+      - ~tent
+      - ~techlevel.medium
+  Description: actor-spy.description
+  Valued:
+    Cost: 500
+  Voiced:
+    VoiceSet: SpyVoice
+
+E7:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 120
+    Prerequisites:
+      - ~tent
+      - atek
+      - ~techlevel.high
+  Description: actor-e7.description
+  Valued:
+    Cost: 1800
+  Health:
+    HP: 10000
+
+MEDI:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 40
+    Prerequisites:
+      - ~tent
+      - ~techlevel.infonly
+  Description: actor-medi.description
+  Valued:
+    Cost: 200
+
+MECH:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 100
+    Prerequisites:
+      - ~tent
+      - fix
+      - ~techlevel.medium
+  Description: actor-mech.description
+  Valued:
+    Cost: 500
+
+EINSTEIN:
+  Inherits: ^CivInfantry
+  Mobile:
+    Speed: 68
+
+DELPHI:
+  Inherits: ^CivInfantry
+
+CHAN:
+  Inherits: ^CivInfantry
+  Valued:
+    Cost: 500
+
+GNRL:
+  Inherits:
+    - ^CivInfantry
+    - ^ArmedCivilian
+
+THF:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 110
+    Prerequisites:
+      - ~barr
+      - dome
+      - ~techlevel.medium
+  Valued:
+    Cost: 500
+  Voiced:
+    VoiceSet: ThiefVoice
+
+SHOK:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 130
+    Prerequisites:
+      - ~barr
+      - stek
+      - tsla
+      - ~infantry.russia
+      - ~techlevel.high
+  Valued:
+    Cost: 350
+  Armament@PRIMARY:
+    Weapon: PortaTesla
+
+Zombie:
+  Inherits: ^Soldier
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 200
+    Prerequisites:
+      - ~barracks
+      - ~bio
+  Valued:
+    Cost: 100
+  Health:
+    HP: 25000
+
+Ant:
+  Inherits: ^Infantry
+  Valued:
+    Cost: 300
+  Health:
+    HP: 75000
+  Armament:
+    Weapon: mandible
+
+FireAnt:
+  Inherits: Ant
+
+ScoutAnt:
+  Inherits: Ant
+
+WarriorAnt:
+  Inherits: Ant
+
+GodSoldier:
+  Inherits: ^Soldier
+  Inherits@AUTOTARGET: ^AutoTargetGroundAssaultMove
+  Buildable:
+    Queue: Infantry
+    BuildAtProductionType: Soldier
+    BuildPaletteOrder: 9999
+    Prerequisites: []
+  Description: actor-godsoldier.description
+  Valued:
+    Cost: 0
+  Tooltip:
+    Name: actor-godsoldier.name
+  UpdatesPlayerStatistics:
+    AddToArmyValue: true
+  Selectable:
+    Class: GodSoldier
+  Health:
+    HP: 999999999
+  Mobile:
+    Speed: 120
+  RevealsShroud:
+    Range: 20c0
+  Armament@PRIMARY:
+    Weapon: GodLaser
+    FireDelay: 0
+  AttackFrontal:
+    FacingTolerance: 0
+  AutoTarget:
+    InitialStance: AttackAnything
+    ScanRadius: 999999
+  Palette: player-noshadow
+  IsPlayerPalette: true
+  Voiced:
+    VoiceSet: HeroicVoice
