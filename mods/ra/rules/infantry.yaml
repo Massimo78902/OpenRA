@@ -1,66 +1,23 @@
 GODSOLDIER:
-	Inherits: ^Soldier
-	Inherits@AUTOTARGET: ^AutoTargetAllAssaultMove
+	Inherits: E1
 
 	Buildable:
-		Queue: Infantry
-		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 999
-		Prerequisites: ~barracks
-		Description: Overpowered infantry unit.
-
-	Selectable:
-		Class: GODSOLDIER
 
 	Valued:
 		Cost: 0
 
 	Tooltip:
 		Name: God Soldier
-		GenericName: Infantry
-
-	RenderSprites:
-		Image: E1
-
-	UpdatesPlayerStatistics:
-		AddToArmyValue: true
 
 	Health:
 		HP: 50000
 
 	Mobile:
-		Speed: 100
-		Voice: Move
+		Speed: 200
+
+	Armament@PRIMARY:
+		Weapon: M1Carbine
 
 	RevealsShroud:
 		Range: 10c0
-
-	Armament@PRIMARY:
-		Weapon: GodGun
-		LocalOffset: 0,0,0
-
-	AttackFrontal:
-		Voice: Attack
-		FacingTolerance: 0
-
-	AttackMove:
-		Voice: Move
-
-	Guard:
-		Voice: Move
-
-	Passenger:
-		Voice: Move
-
-	WithInfantryBody:
-		DefaultAttackSequence: shoot
-		RequiresCondition: !parachute
-
-	WithInfantryBody@PARACHUTE:
-		StandSequences: parachute
-		RequiresCondition: parachute
-		Palette: player-noshadow
-		IsPlayerPalette: true
-
-	Voiced:
-		VoiceSet: GenericVoice
