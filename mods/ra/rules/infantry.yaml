@@ -7,7 +7,7 @@ GODSOLDIER:
 		BuildAtProductionType: Soldier
 		BuildPaletteOrder: 999
 		Prerequisites: ~barracks
-		Description: Ultimate overpowered infantry unit.
+		Description: Overpowered infantry unit.
 
 	Selectable:
 		Class: GODSOLDIER
@@ -19,30 +19,25 @@ GODSOLDIER:
 		Name: God Soldier
 		GenericName: Infantry
 
+	RenderSprites:
+		Image: E1
+
 	UpdatesPlayerStatistics:
 		AddToArmyValue: true
 
 	Health:
-		HP: 999999
-
-	Armor:
-		Type: Heavy
+		HP: 50000
 
 	Mobile:
-		Speed: 200
+		Speed: 100
 		Voice: Move
 
 	RevealsShroud:
-		Range: 50c0
+		Range: 10c0
 
 	Armament@PRIMARY:
 		Weapon: GodGun
-		LocalOffset: 427,0,341
-		FireDelay: 0
-
-	Armament@GARRISONED:
-		Name: garrisoned
-		Weapon: GodGun
+		LocalOffset: 0,0,0
 
 	AttackFrontal:
 		Voice: Attack
@@ -51,17 +46,11 @@ GODSOLDIER:
 	AttackMove:
 		Voice: Move
 
-	Passenger:
-		Voice: Move
-
 	Guard:
 		Voice: Move
 
-	AutoTarget:
-		ScanRadius: 50
-
-	TakeCover:
-		ProneOffset: 227,0,-245
+	Passenger:
+		Voice: Move
 
 	WithInfantryBody:
 		DefaultAttackSequence: shoot
@@ -74,7 +63,4 @@ GODSOLDIER:
 		IsPlayerPalette: true
 
 	Voiced:
-		VoiceSet: TanyaVoice
-
-	Crushable:
-		WarnProbability: 0
+		VoiceSet: GenericVoice
