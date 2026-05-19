@@ -2211,61 +2211,14 @@ ANYPOWER:
 		Name: actor-anypower-name
 
 BOMB:
-	Inherits: ^Defense
-	Inherits@AUTOTARGET: ^AutoTargetGround
-	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
-
-	Buildable:
-		Queue: Defense
-		BuildPaletteOrder: 85
-		Prerequisites: weap, ~structures.soviet, ~techlevel.medium
-		Description: Bomb Tower - launches explosive shells with area damage.
-
-	Valued:
-		Cost: 00
-
+	Inherits: ^Wall
 	Tooltip:
-		Name: Bomb Tower
-
-	Selectable:
-		Bounds: 1024, 1024
-
-	Health:
-		HP: 45000
-
+		Name: actor-wood-name
 	Armor:
-		Type: Heavy
-
-	RevealsShroud:
-		MinRange: 5c0
-		Range: 7c0
-
-	WithBuildingBib:
-		HasMinibib: true
-
-	Turreted:
-		TurnSpeed: 40
-		InitialFacing: 0
-		RequiresCondition: !build-incomplete
-
-	WithSpriteTurret:
-		RequiresCondition: !build-incomplete
-
-	Armament:
-		Weapon: BombCannon
-		LocalOffset: 0,0,900
-		MuzzleSequence: muzzle
-
-	AttackTurreted:
-		PauseOnCondition: disabled || build-incomplete
-
-	WithMuzzleOverlay:
-
-	Power:
-		Amount: -60
-
-	DetectCloaked:
-		Range: 6c0
-
-	RenderRangeCircle:
-
+		Type: Wood
+	LineBuild:
+		NodeTypes: woodfence
+	LineBuildNode:
+		Types: woodfence
+	WithWallSpriteBody:
+		Type: woodfence
