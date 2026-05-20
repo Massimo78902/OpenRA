@@ -2,6 +2,7 @@ MSLO:
 	Inherits: ^ScienceBuilding
 	Inherits@IDISABLE: ^DisableOnLowPowerOrPowerDown
 	Inherits@shape: ^2x1Shape
+
 	Selectable:
 		Bounds: 2048, 1024
 	Valued:
@@ -2080,28 +2081,42 @@ FIX:
 
 SBAG:
 	Inherits: ^Wall
+	Inherits@AUTOTARGET: ^AutoTargetGround
+
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 10
 		Prerequisites: fact, ~structures.allies, ~techlevel.low
 		Description: actor-sbag.description
+
 	Valued:
 		Cost: 30
+
 	CustomSellValue:
 		Value: 0
+
 	Tooltip:
 		Name: actor-sbag.name
+
 	Health:
 		HP: 15000
+
 	Armor:
 		Type: Wood
+
 	LineBuild:
 		NodeTypes: sandbag
+
 	LineBuildNode:
 		Types: sandbag
+
 	WithWallSpriteBody:
 		Type: sandbag
 
+	Armament:
+		Weapon: M1Carbine
+
+	AttackOmni:
 FENC:
 	Inherits: ^Wall
 	Buildable:
@@ -2128,33 +2143,51 @@ FENC:
 
 BRIK:
 	Inherits: ^Wall
+	Inherits@AUTOTARGET: ^AutoTargetGround
+
 	Buildable:
 		Queue: Defense
 		BuildPaletteOrder: 30
 		Prerequisites: fact, ~techlevel.medium
 		Description: actor-brik.description
+
 	Valued:
 		Cost: 200
+
 	CustomSellValue:
 		Value: 0
+
 	Tooltip:
 		Name: actor-brik.name
+
 	SoundOnDamageTransition:
 		DamagedSounds: crmble2.aud
 		DestroyedSounds: kaboom30.aud
+
 	Health:
 		HP: 40000
+
 	Armor:
 		Type: Concrete
+
 	Crushable:
 		CrushClasses: heavywall
+
 	BlocksProjectiles:
+
 	LineBuild:
 		NodeTypes: concrete
+
 	LineBuildNode:
 		Types: concrete
+
 	WithWallSpriteBody:
 		Type: concrete
+
+	Armament:
+		Weapon: M1Carbine
+
+	AttackOmni:
 
 CYCL:
 	Inherits: ^Wall
@@ -2210,15 +2243,3 @@ ANYPOWER:
 	Tooltip:
 		Name: actor-anypower-name
 
-BOMB:
-	Inherits: ^Wall
-	Tooltip:
-		Name: actor-wood-name
-	Armor:
-		Type: Wood
-	LineBuild:
-		NodeTypes: woodfence
-	LineBuildNode:
-		Types: woodfence
-	WithWallSpriteBody:
-		Type: woodfence
